@@ -1,3 +1,9 @@
 main {
 	margin: 20px;
 }
+
+.container {
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+}

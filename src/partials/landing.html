@@ -1,8 +1,18 @@
-<main>
+<main class="js-main">
 	<h1>Buscador de series de anime</h1>
 	<form>
-		<input type="text" name="" id="" />
+		<input
+			class="js-searchInput"
+			type="text"
+			name="input"
+			id="input"
+			placeholder="One Piece"
+		/>
 	</form>
-	<button>Buscar</button>
-	<button>Reset</button>
+	<button class="js-btnSearch">Buscar</button>
+	<button class="js-btnReset">Reset</button>
+	<div class="container">
+		<section class="favourites js-favourites"></section>
+		<section class="result js-result"></section>
+	</div>
 </main>
