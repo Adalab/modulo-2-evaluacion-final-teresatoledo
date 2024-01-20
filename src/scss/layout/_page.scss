@@ -7,3 +7,12 @@ main {
 	flex-direction: row;
 	gap: 10px;
 }
+
+.alreadyFavourite {
+	border: 3px solid darkcyan;
+}
+.alreadyFavouriteText {
+	background-color: darkcyan;
+	color: white;
+	width: 231px;
+}

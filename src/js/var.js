@@ -4,6 +4,8 @@ const btnReset = document.querySelector('.js-btnReset');
 const main = document.querySelector('.js-main');
 const resultSection = document.querySelector('.js-result');
 const favouriteSection = document.querySelector('.js-favourites');
+const resultList = document.querySelector('.js-result-list');
+const favouritesList = document.querySelector('.js-favourites-list');
 
 const noImg =
 	'https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png';
