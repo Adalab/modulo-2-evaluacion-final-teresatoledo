@@ -4,20 +4,18 @@ let favouriteSeries = [];
 function renderFavourites(array) {
 	for (const eachResult of array) {
 		let newSerie = document.createElement('div'); //TIENE MAS SENTIDO UN LI
-		newSerie.setAttribute('class', 'newSerie js-newSerie');
+		newSerie.setAttribute('class', 'newSerie favSerie');
 		newSerie.setAttribute('id', eachResult.mal_id);
 		favouriteSection.appendChild(newSerie);
 		let serieImg = eachResult.images.jpg.image_url;
-		newSerie.innerHTML = `<img src='${serieImg}' alt='Serie cover' > <p>${eachResult.title}</p>`;
+		newSerie.innerHTML = `<img class='imgFav' src='${serieImg}' alt='Serie cover' > <p class='textFav'>${eachResult.title}</p> <i class="fa-solid fa-trash js-remove bin"></i> `;
 		if (serieImg === noImg) {
 			serieImg = defaultImg;
 		}
 		renderSerie(seriesList);
 
-		//FAVORITESERIES(array) solo guarda el último valor que se añade, siempre tiene un único elemento
-		console.log(favouriteSeries);
-		//Guarda solo el último elemento al que le pincho y lo va pisando
 		localStorage.setItem('favourites', JSON.stringify(favouriteSeries));
+		removeFavourite();
 	}
 }
 
@@ -31,10 +29,10 @@ function handleFavourite(event) {
 	);
 
 	if (indexSerieFav === -1) {
-		favouriteSeries = [];
+		favouriteSection.innerHTML = '';
 		favouriteSeries.push(findSerieId);
 	} else {
-		//favouriteSeries.splice(indexSerieFav, 1);
+		favouriteSeries.splice(indexSerieFav, 1);
 	}
 	renderFavourites(favouriteSeries);
 }
@@ -53,7 +51,7 @@ function renderSerie(result) {
 		newSerie.setAttribute('id', eachResult.mal_id);
 		resultSection.appendChild(newSerie);
 		let serieImg = eachResult.images.jpg.image_url;
-		newSerie.innerHTML = `<img src='${serieImg}' alt='Serie cover'> <p>${eachResult.title}</p>`;
+		newSerie.innerHTML = `<img class='img' src='${serieImg}' alt='Serie cover'> <p class='text'>${eachResult.title}</p>`;
 		if (serieImg === noImg) {
 			serieImg = defaultImg;
 		}
@@ -79,10 +77,23 @@ function getDataApi() {
 		});
 }
 
+function getLocalData() {
+	const localFavourites = JSON.parse(localStorage.getItem('favourites'));
+	if (localFavourites) {
+		localFavourites.forEach((each) => {
+			favouriteSection.innerHTML += `<img class='imgFav' src='${each.images.jpg.image_url}' alt='Serie cover' > <p class='textFav'>${each.title}</p> <i class="fa-solid fa-trash js-remove bin"></i> `;
+			favouriteSeries.push(each);
+			console.log(favouriteSeries);
+		});
+	}
+}
+
 function handleSearch(event) {
 	event.preventDefault();
 	resultSection.innerHTML = '';
-	//JSON.parse(localStorage.getItem('favourites'));
+	resultSection.classList.remove('hidden');
+	favouriteSection.classList.remove('hidden');
+	getLocalData();
 	getDataApi();
 }
 

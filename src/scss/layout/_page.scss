@@ -1,18 +1,126 @@
+html {
+	font-size: 62.5%;
+}
+
 main {
+	display: flex;
+	flex-direction: column;
 	margin: 20px;
+}
+.header {
+	height: 200px;
+	background-image: url('/images/header.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.title {
+	background-color: black;
+	color: white;
+	width: 450px;
+	height: 50px;
+	padding-top: 5px;
+	text-align: center;
+	font-size: 3rem;
+}
+
+.search {
+	text-align: center;
+	width: 90%;
+	margin: auto;
+	margin-top: 20px;
+	height: 75px;
+	background-color: white;
+	box-shadow: 10px 10px 20px #680808;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding: 20px;
+}
+.input {
+	height: 35px;
+	//width: 480%;
+	border-color: darkred;
+}
+.button {
+	background-color: darkred;
+	color: white;
+	font-size: 15px;
+	margin-left: 10px;
+	padding: 5px;
 }
 
 .container {
 	display: flex;
 	flex-direction: row;
+
+	gap: 10px;
+	margin-top: 50px;
+}
+.favourites {
+	width: 30%;
+	border: 4px solid darkred;
+}
+.result {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	gap: 20px;
+	width: 70%;
+	border: 4px solid darkred;
+}
+.text {
+	font-size: 1.8rem;
+	font-weight: bold;
+	text-align: center;
+	width: 200px;
+}
+.favSerie {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 	gap: 10px;
 }
-
+.bin {
+	font-size: 1.3rem;
+}
+.textFav {
+	font-size: 1.8rem;
+	font-weight: bold;
+	text-align: center;
+	width: 100px;
+	@media (max-width: 768px) {
+		font-size: 1.2rem;
+	}
+}
+.imgFav {
+	margin: 20px;
+	width: 120px;
+	height: 180px;
+	@media (max-width: 768px) {
+		width: 80px;
+		height: 120px;
+	}
+}
+.img {
+	margin-top: 20px;
+	@media (max-width: 768px) {
+		width: 150px;
+		height: 200px;
+	}
+}
 .alreadyFavourite {
-	border: 3px solid darkcyan;
+	border: 3px solid darkred;
 }
 .alreadyFavouriteText {
-	background-color: darkcyan;
+	background-color: darkred;
 	color: white;
 	width: 231px;
+}
+.hidden {
+	display: none;
 }
