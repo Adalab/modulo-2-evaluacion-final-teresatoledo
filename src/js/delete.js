@@ -6,7 +6,13 @@ function handleRemove(event) {
 		(serie) => serie.mal_id === idFavouriteClicked
 	);
 	favouriteSeries.splice(indexFav, 1);
+	localStorage.removeItem('favourites');
 	renderFavourites(favouriteSeries);
+	renderSerie(seriesList);
+	if (favouriteSeries.length === 0) {
+		favouriteSection.classList.add('hidden');
+		btnDeleteAll.classList.add('hidden');
+	}
 }
 
 function removeFavourite() {
@@ -15,3 +21,11 @@ function removeFavourite() {
 		eachBin.addEventListener('click', handleRemove);
 	}
 }
+
+function handleRemoveAll() {
+	favouriteSection.innerHTML = '';
+	localStorage.removeItem('favourites');
+	favouriteSeries = [];
+	renderSerie(seriesList);
+}
+btnDeleteAll.addEventListener('click', handleRemoveAll);

@@ -6,7 +6,7 @@ const resultSection = document.querySelector('.js-result');
 const favouriteSection = document.querySelector('.js-favourites');
 const resultList = document.querySelector('.js-result-list');
 const favouritesList = document.querySelector('.js-favourites-list');
-
+const btnDeleteAll = document.querySelector('.js-deleteAll');
 const noImg =
 	'https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png';
 const defaultImg =

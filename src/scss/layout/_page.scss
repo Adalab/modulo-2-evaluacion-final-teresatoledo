@@ -55,7 +55,14 @@ main {
 	margin-left: 10px;
 	padding: 5px;
 }
-
+.buttonDelete {
+	background-color: darkred;
+	color: white;
+	font-size: 15px;
+	margin-left: 10px;
+	padding: 5px;
+	width: fit-content;
+}
 .container {
 	display: flex;
 	flex-direction: row;

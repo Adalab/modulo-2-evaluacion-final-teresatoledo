@@ -4,12 +4,8 @@ let favouriteSeries = [];
 function renderFavourites(favouriteSeries) {
 	favouriteSection.innerHTML = '';
 	for (const eachResult of favouriteSeries) {
-		let newSerie = document.createElement('li');
-		newSerie.setAttribute('class', 'newSerie favSerie');
-		newSerie.setAttribute('id', eachResult.mal_id);
-		favouriteSection.appendChild(newSerie);
 		let serieImg = eachResult.images.jpg.image_url;
-		newSerie.innerHTML = `<img class='imgFav' src='${serieImg}' alt='Serie cover' > <p class='textFav'>${eachResult.title}</p> <i class="fa-solid fa-trash js-remove bin"></i> `;
+		favouriteSection.innerHTML += `<div class='newSerie favSerie' id='${eachResult.mal_id}'><img class='imgFav' src='${serieImg}' alt='Serie cover' > <p class='textFav'>${eachResult.title}</p> <i class="fa-solid fa-trash js-remove bin"></i></div> `;
 		if (serieImg === noImg) {
 			serieImg = defaultImg;
 		}
@@ -47,23 +43,17 @@ function listenerSerie() {
 function renderSerie(result) {
 	resultSection.innerHTML = '';
 	for (const eachResult of result) {
-		let newSerie = document.createElement('li');
-		newSerie.setAttribute('class', 'newSerie js-newSerie');
-		newSerie.setAttribute('id', eachResult.mal_id);
-		resultSection.appendChild(newSerie);
 		let serieImg = eachResult.images.jpg.image_url;
-
 		if (serieImg === noImg) {
 			serieImg = defaultImg;
 		}
-
 		const indexSerieFav = favouriteSeries.findIndex(
 			(serie) => serie.mal_id === eachResult.mal_id
 		);
 		if (indexSerieFav !== -1) {
-			newSerie.innerHTML = `<img class="selected" src='${serieImg}' alt='Serie cover'> <p class="selectedText">${eachResult.title}</p>`;
+			resultSection.innerHTML += `<div class='newSerie js-newSerie' id='${eachResult.mal_id}'><img class="selected" src='${serieImg}' alt='Serie cover'> <p class="selectedText">${eachResult.title}</p></div>`;
 		} else {
-			newSerie.innerHTML = `<img class='img' src='${serieImg}' alt='Serie cover'> <p class='text'>${eachResult.title}</p>`;
+			resultSection.innerHTML += `<div class='newSerie js-newSerie' id='${eachResult.mal_id}'><img class='img' src='${serieImg}' alt='Serie cover'> <p class='text'>${eachResult.title}</p></div>`;
 		}
 		listenerSerie();
 	}
@@ -92,10 +82,9 @@ function getLocalData() {
 
 function handleSearch(event) {
 	event.preventDefault();
-
 	resultSection.classList.remove('hidden');
 	favouriteSection.classList.remove('hidden');
-
+	btnDeleteAll.classList.remove('hidden');
 	getDataApi();
 }
 
