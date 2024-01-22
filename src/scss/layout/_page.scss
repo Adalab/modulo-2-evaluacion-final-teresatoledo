@@ -32,13 +32,17 @@ main {
 	width: 90%;
 	margin: auto;
 	margin-top: 20px;
-	height: 75px;
+	height: 105px;
 	background-color: white;
 	box-shadow: 10px 10px 20px #680808;
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	justify-content: space-between;
 	padding: 20px;
+	@media (min-width: 768px) {
+		flex-direction: row;
+		height: 75px;
+	}
 }
 .input {
 	height: 35px;
@@ -54,6 +58,10 @@ main {
 	font-size: 15px;
 	margin-left: 10px;
 	padding: 5px;
+	margin-top: 10px;
+	@media (min-width: 768px) {
+		margin-top: 0px;
+	}
 }
 .buttonDelete {
 	background-color: darkred;
@@ -65,14 +73,19 @@ main {
 }
 .container {
 	display: flex;
-	flex-direction: row;
-
+	flex-direction: column;
 	gap: 10px;
 	margin-top: 50px;
+	@media (min-width: 768px) {
+		flex-direction: row;
+	}
 }
 .favourites {
-	width: 30%;
+	width: 100%;
 	border: 4px solid darkred;
+	@media (min-width: 768px) {
+		width: 30%;
+	}
 }
 .result {
 	margin: auto;
@@ -81,14 +94,21 @@ main {
 	flex-wrap: wrap;
 	justify-content: space-around;
 	gap: 20px;
-	width: 70%;
+	width: 100%;
 	border: 4px solid darkred;
+	@media (min-width: 768px) {
+		width: 70%;
+	}
 }
 .text {
 	font-size: 1.8rem;
 	font-weight: bold;
 	text-align: center;
-	width: 200px;
+	width: 150px;
+	text-align: center;
+	@media (min-width: 768px) {
+		width: 230px;
+	}
 }
 .favSerie {
 	display: flex;
@@ -140,11 +160,11 @@ main {
 .selectedText {
 	background-color: darkred;
 	color: white;
-	font-size: 1.2rem;
+	font-size: 1.8rem;
 	width: 150px;
+	text-align: center;
 	@media (min-width: 768px) {
 		width: 230px;
-		font-size: 1.8rem;
 	}
 }
 .hidden {
