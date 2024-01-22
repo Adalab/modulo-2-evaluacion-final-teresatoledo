@@ -1,9 +1,10 @@
 let seriesList = [];
 let favouriteSeries = [];
 
-function renderFavourites(array) {
-	for (const eachResult of array) {
-		let newSerie = document.createElement('div'); //TIENE MAS SENTIDO UN LI
+function renderFavourites(favouriteSeries) {
+	favouriteSection.innerHTML = '';
+	for (const eachResult of favouriteSeries) {
+		let newSerie = document.createElement('li');
 		newSerie.setAttribute('class', 'newSerie favSerie');
 		newSerie.setAttribute('id', eachResult.mal_id);
 		favouriteSection.appendChild(newSerie);
@@ -12,8 +13,6 @@ function renderFavourites(array) {
 		if (serieImg === noImg) {
 			serieImg = defaultImg;
 		}
-		renderSerie(seriesList);
-
 		localStorage.setItem('favourites', JSON.stringify(favouriteSeries));
 		removeFavourite();
 	}
@@ -29,12 +28,13 @@ function handleFavourite(event) {
 	);
 
 	if (indexSerieFav === -1) {
-		favouriteSection.innerHTML = '';
 		favouriteSeries.push(findSerieId);
 	} else {
 		favouriteSeries.splice(indexSerieFav, 1);
 	}
+	console.log(favouriteSeries);
 	renderFavourites(favouriteSeries);
+	renderSerie(seriesList);
 }
 
 function listenerSerie() {
@@ -45,23 +45,26 @@ function listenerSerie() {
 }
 
 function renderSerie(result) {
+	resultSection.innerHTML = '';
 	for (const eachResult of result) {
-		let newSerie = document.createElement('div'); //TIENE MAS SENTIDO UN LI
+		let newSerie = document.createElement('li');
 		newSerie.setAttribute('class', 'newSerie js-newSerie');
 		newSerie.setAttribute('id', eachResult.mal_id);
 		resultSection.appendChild(newSerie);
 		let serieImg = eachResult.images.jpg.image_url;
-		newSerie.innerHTML = `<img class='img' src='${serieImg}' alt='Serie cover'> <p class='text'>${eachResult.title}</p>`;
+
 		if (serieImg === noImg) {
 			serieImg = defaultImg;
 		}
-		//Meto este if dentro de renderserie para indicarle directamente quién es el padre de newserie y vuelvo a llamar a esta función dentro de renderfavourites para que la vuelva a ejecutar y evalúe esta condición, pero no entra aquí una vez la llamo desde renderfavourites.
-		// if (
-		// 	seriesList.includes(eachResult.mal_id) &&
-		// 	favouritesList.includes(eachResult.mal_id)
-		// ) {
-		// 	newSerie.innerHTML = `<img class="alreadyFavourite" src='${serieImg}' alt='Serie cover'> <p class="alreadyFavouriteText">${eachResult.title}</p>`;
-		// }
+
+		const indexSerieFav = favouriteSeries.findIndex(
+			(serie) => serie.mal_id === eachResult.mal_id
+		);
+		if (indexSerieFav !== -1) {
+			newSerie.innerHTML = `<img class="selected" src='${serieImg}' alt='Serie cover'> <p class="selectedText">${eachResult.title}</p>`;
+		} else {
+			newSerie.innerHTML = `<img class='img' src='${serieImg}' alt='Serie cover'> <p class='text'>${eachResult.title}</p>`;
+		}
 		listenerSerie();
 	}
 }
@@ -78,23 +81,23 @@ function getDataApi() {
 }
 
 function getLocalData() {
+	//EJECUTAR CUANDO CARGA LA PAG (FUERA) CUIDADO PORQUE SI NO HAY NADA, NO PINTA
 	const localFavourites = JSON.parse(localStorage.getItem('favourites'));
 	if (localFavourites) {
-		localFavourites.forEach((each) => {
-			favouriteSection.innerHTML += `<img class='imgFav' src='${each.images.jpg.image_url}' alt='Serie cover' > <p class='textFav'>${each.title}</p> <i class="fa-solid fa-trash js-remove bin"></i> `;
-			favouriteSeries.push(each);
-			console.log(favouriteSeries);
-		});
+		favouriteSection.classList.remove('hidden');
+		favouriteSeries = localFavourites;
+		renderFavourites(favouriteSeries);
 	}
 }
 
 function handleSearch(event) {
 	event.preventDefault();
-	resultSection.innerHTML = '';
+
 	resultSection.classList.remove('hidden');
 	favouriteSection.classList.remove('hidden');
-	getLocalData();
+
 	getDataApi();
 }
 
 btnSearch.addEventListener('click', handleSearch);
+getLocalData();
